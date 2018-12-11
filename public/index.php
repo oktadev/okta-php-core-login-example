@@ -2,8 +2,10 @@
 require('../bootstrap.php');
 
 use Src\Services\OktaApiService;
+use Src\Controllers\UserController;
 
 $oktaApi = new OktaApiService;
+$userController = new UserController($oktaApi);
 
 // view data
 $data = null;
@@ -28,6 +30,20 @@ if (isset($_REQUEST['logout'])) {
     unset($_SESSION['username']);
     header('Location: /');
     die();
+}
+
+if (isset($_REQUEST['register'])) {
+    view('register');
+    die();
+}
+
+if (isset($_REQUEST['command']) && ($_REQUEST['command'] == 'register')) {
+    $userController->handleRegistrationPost();
+    die();
+}
+
+if (isset($_REQUEST['thankyou'])) {
+    $data['thank_you'] = 'Thank you for your registration!';
 }
 
 view('home', $data);

@@ -76,6 +76,35 @@ class OktaApiService
         }
     }
 
+    public function registerUser($input)
+    {
+        $data['profile'] = [
+            'firstName' => $input['first_name'],
+            'lastName'  => $input['last_name'],
+            'email'     => $input['email'],
+            'login'     => $input['email']
+        ];
+        $data['credentials'] = [
+            'password'  => [
+                'value' => $input['password']
+            ]
+        ];
+        $data = json_encode($data);
+
+        $ch = curl_init($this->apiUrlBase . 'users');
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Accept: application/json',
+            'Content-Type: application/json',
+            'Content-Length: ' . strlen($data),
+            'Authorization: SSWS ' . $this->apiToken
+        ]);
+
+        return curl_exec($ch);
+    }
+
     private function httpRequest($url, $params = null)
     {
         $ch = curl_init($url);
