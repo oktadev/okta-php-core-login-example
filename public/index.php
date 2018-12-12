@@ -46,4 +46,18 @@ if (isset($_REQUEST['thankyou'])) {
     $data['thank_you'] = 'Thank you for your registration!';
 }
 
+if (isset($_REQUEST['forgot'])) {
+    view('forgot');
+    die();
+}
+
+if (isset($_REQUEST['command']) && ($_REQUEST['command'] == 'forgot_password')) {
+    $userController->handleForgotPasswordPost();
+    die();
+}
+
+if (isset($_REQUEST['password_reset'])) {
+    $data['thank_you'] = 'You should receive an email with password reset instructions';
+}
+
 view('home', $data);

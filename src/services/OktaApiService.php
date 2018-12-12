@@ -105,6 +105,37 @@ class OktaApiService
         return curl_exec($ch);
     }
 
+    public function findUser($input)
+    {
+        $url = $this->apiUrlBase . 'users?q=' . urlencode($input['email']) . '&limit=1';
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Accept: application/json',
+            'Content-Type: application/json',
+            'Authorization: SSWS ' . $this->apiToken
+        ]);
+
+        return curl_exec($ch);
+    }
+
+    public function resetPassword($userId)
+    {
+        $url = $this->apiUrlBase . 'users/' . $userId . '/lifecycle/reset_password';
+
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, []);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Accept: application/json',
+            'Content-Type: application/json',
+            'Authorization: SSWS ' . $this->apiToken
+        ]);
+
+        return curl_exec($ch);
+    }
+
     private function httpRequest($url, $params = null)
     {
         $ch = curl_init($url);
