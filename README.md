@@ -2,7 +2,7 @@
 
 This example shows how to create a PHP application with user authentication from scratch in PHP, using Okta OAuth 2.0 to handle user registration/login/logout/forgot password.
 
-Please read <article placeholder> to see how this application was built.
+Please read [Build Simple Login in PHP](https://developer.okta.com/blog/2018/12/28/simple-login-php) to see how this application was built.
 
 **Prerequisites:** PHP, Composer, [Okta developer account](https://developer.okta.com/)
 
