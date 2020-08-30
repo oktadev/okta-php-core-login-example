@@ -1,5 +1,7 @@
 <?php
 require('../bootstrap.php');
+require('../src/services/OktaApiService.php');
+require('../src/controllers/UserController.php');
 
 use Src\Services\OktaApiService;
 use Src\Controllers\UserController;
